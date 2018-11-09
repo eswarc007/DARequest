@@ -1,0 +1,274 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Request Form</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'images/icons/DA.ico'%}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css'%}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css'%}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<style>
+.selectWrapper{
+  border-radius:36px;
+  display:inline-block;
+  overflow:hidden;
+  color: #666666;
+  border:1px solid #cccccc;
+  background: #e6e6e6;
+  line-height: 1.5;
+}
+.selectBox{
+  width:390px;
+  height:30px;
+  border:0px;
+  outline:none;
+  color: #666666;
+  background: #e6e6e6;
+  font-family: Montserrat-Bold;
+  line-height: 1.5;
+  text-align: center;
+  text-align-last: center;
+
+}
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+form.search input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  font-family: Montserrat-Bold;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.search button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #846add;
+  
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.search button:hover {
+  background:#2196F3;
+}
+
+/* Clear floats */
+form.search::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+</style>
+</head>
+<body>
+
+	<div class="bg-contact100" style="background-image: url('images/bg-01.jpg');">
+		<div class="container-contact100">
+			<div class="wrap-contact100">
+				<div class="contact100-pic">
+				   <div class="js-tilt" data-tilt>
+					<img src="{% static 'images/dalogowhite-01color1.png'%}" alt="IMG">
+				</div>
+					<div> 
+					
+						<form class="search" method = "post" action="." >{% csrf_token %}
+						  <input type="text" placeholder="Search by RequestID" name="searchrequestid">
+						  <button type="submit"><i class="fa fa-search"></i></button>
+						</form>
+				    </div>
+				</div>
+				<form class="contact100-form validate-form" method = "post" action="." enctype="multipart/form-data">{% csrf_token %}
+					<span class="contact100-form-title">
+						DA Request Form
+					</span>
+					<div class="wrap-input100 validate-input" data-validate = "Requestor Name is required">
+						<input class="input100" type="text" id="id_{{form.requestorname.name}}" name="{{form.requestorname.name}}"  placeholder="Requestor Name" maxlength= "{{form.requestorname.field.max_length}}">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "Requestor EmpID is required">
+						<input class="input100" type="text" id="id_{{form.requestorempid.name}}" name="{{form.requestorempid.name}}"  placeholder="Requestor EmpID" maxlength= "{{form.requestorempid.field.max_length}}">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-id-badge" aria-hidden="true"></i>
+						</span>
+					</div>
+					
+					 <div class="selectWrapper" data-validate = "Select any project">
+						<select class="selectBox" id="id_{{form.projectname.name}}" name="{{form.projectname.name}}"  required>
+						<option value= "default" selected disable hidden>Select Project</option>
+						<option value = "Ratemetrics">Ratemetrics</option>
+						<option value = "StorTrack">StorTrack</option>
+						<option value = "ACP">ACP</option>
+						<option value = "Stubhub">Stubhub</option>
+						<option value = "Oyo">Oyo</option>
+						<option value = "Cengage">Cengage</option>
+						</select>
+					</div>
+					
+					<div class="selectWrapper" data-validate = "Process is required">
+						<select class="selectBox" id="id_{{form.process.name}}" name="{{form.process.name}}"  required>
+						<option value= "default" selected disable hidden>Select Process</option>
+						<option value = "Scripting">Scripting</option>
+						<option value = "Mapping">Mapping</option>
+						<option value = "Manual">Manual</option>
+						<option value = "New Request">New Request</option>
+						</select>
+						<br>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "Request overview is required">
+						<input class="input100" type="text" id="id_{{form.processoverview.name}}" name="{{form.processoverview.name}}"  placeholder="Request Overview" maxlength= "{{form.processoverview.field.max_length}}" >
+						<span class="symbol-input100">
+							<i class="fa fa-edit" aria-hidden="true"></i>
+						</span>
+						<span class="focus-input100"></span>
+					</div>
+                    <div class="wrap-input100 validate-input" data-validate = "Please describe your request with in 2000 characters">
+						<textarea class="input100" id = "id_{{form.description.name}}" name="{{form.description.name}}" maxlength= "{{form.process.field.max_length}}"  placeholder="Request Description"></textarea>
+						<span class="symbol-input100">
+							<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+						</span>
+						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "Please assign excepted TAT">
+						<input class="input100" type="text" onfocus="(this.type='date')" id="id_{{form.excepted_TAT.name}}_0" name="{{form.excepted_TAT.name}}_0"  placeholder="Excepted Date">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+						</span>
+						<input class="input100" type="text" onfocus="(this.type='time')" id="id_{{form.excepted_TAT.name}}_1" name="{{form.excepted_TAT.name}}_1"  placeholder="Excepted Time in HH:MM AM/PM">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-calendar" aria-hidden="true"></i>
+						</span>
+					</div>
+	               <div class="wrap-input100 validate-input" data-validate = "Requestor Manager Name is required">
+						<input class="input100" type="text" id="id_{{form.requestormanagername.name}}" name="{{form.requestormanagername.name}}"  placeholder="Requestor Manager Name" maxlength= "{{form.requestormanagername.field.max_length}}">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</span>
+					</div>
+                    
+                    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@algolitics.in">
+						<input class="input100" type="text" name = "{{form.requestormanagermailid.name}}" id="email" placeholder="Requestor Manager's Emailid in algolitics domain" pattern=".+@algolitics.in">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@algolitics.in">
+						<input class="input100" type="email" name = "{{form.requestormailid.name}}" id="email" placeholder="Requestor's Emailid in algolitics domain" pattern=".+@algolitics.in" title="Kindly use algolitics.in mails only">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+					<div class="wrap-input100">
+						<input class="input100" type="email" onfocus="(this.type='file')" name = "{{form.document.name}}" id="id_{{form.document.name}}" placeholder="Upload the file if any" title="Kindly use algolitics.in mails only">
+						
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-upload" aria-hidden="true"></i>
+						</span>
+					</div>
+					<div class="container-contact100-form-btn">
+						<input type = "submit" value="Submit" class="contact100-form-btn">
+					</div>
+					{% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                    {{error.name}}<br>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+				</form>
+			</div>
+			
+		</div>
+		
+	</div>
+
+
+
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js'%}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js'%}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/tilt/tilt.jquery.min.js'%}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'js/main.js'%}"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+
+</script>
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('input').focus(function(){
+    placeholder = $(this).attr('placeholder');
+    if(placeholder != undefined){
+      $(this).parent().prepend('<span class="input-placeholder" STYLE= "font-size: 10pt;">'+placeholder+':</span>');
+    }
+  });
+  $('input').blur(function(){
+    $(this).parent().find('.input-placeholder').remove();
+  });
+});
+</script>
+</body>
+</html>
